@@ -82,9 +82,12 @@ class PlacesAutocomplete extends React.Component {
       this.props.onError(status, this.clearSuggestions);
       return;
     }
-    const { highlightFirstSuggestion } = this.props;
+    const { highlightFirstSuggestion, enhancePredictions } = this.props;
+
+    const enhancedPredictions =  enhancePredictions ? enhancePredictions(predictions): predictions;
+
     this.setState({
-      suggestions: predictions.map((p, idx) => ({
+      suggestions: enhancedPredictions.map((p, idx) => ({
         id: p.id,
         description: p.description,
         placeId: p.place_id,
@@ -381,6 +384,7 @@ PlacesAutocomplete.propTypes = {
   highlightFirstSuggestion: PropTypes.bool,
   shouldFetchSuggestions: PropTypes.bool,
   googleCallbackName: PropTypes.string,
+  enhancePredictions: PropTypes.func
 };
 
 PlacesAutocomplete.defaultProps = {
@@ -395,6 +399,7 @@ PlacesAutocomplete.defaultProps = {
   debounce: 200,
   highlightFirstSuggestion: false,
   shouldFetchSuggestions: true,
+  enhancePredictions: null
 };
 
 export default PlacesAutocomplete;
