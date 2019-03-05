@@ -390,13 +390,6 @@ PlacesAutocomplete.propTypes = {
 };
 
 PlacesAutocomplete.defaultProps = {
-  /* eslint-disable no-unused-vars, no-console */
-  onError: (status, _clearSuggestions) =>
-    console.error(
-      '[react-places-autocomplete]: error happened when fetching data from Google Maps API.\nPlease check the docs here (https://developers.google.com/maps/documentation/javascript/places#place_details_responses)\nStatus: ',
-      status
-    ),
-  /* eslint-enable no-unused-vars, no-console */
   searchOptions: {},
   debounce: 200,
   highlightFirstSuggestion: false,
