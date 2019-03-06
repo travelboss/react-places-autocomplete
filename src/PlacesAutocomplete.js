@@ -82,11 +82,10 @@ class PlacesAutocomplete extends React.Component {
       this.props.onError(status, this.clearSuggestions);
       return;
     }
-    const { highlightFirstSuggestion, enhancePredictions } = this.props;
-    const { userInputValue } = this.state;
+    const { highlightFirstSuggestion, enhancePredictions, value } = this.props;
 
     const enhancedPredictions = enhancePredictions
-      ? enhancePredictions(predictions, userInputValue)
+      ? enhancePredictions(predictions, value)
       : predictions;
 
     this.setState({

@@ -1,6 +1,6 @@
 {
   "name": "react-places-autocomplete-tb",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A React component for Google Maps Places Autocomplete",
   "main": "dist/index.js",
   "scripts": {
