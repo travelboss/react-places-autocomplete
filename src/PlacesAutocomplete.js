@@ -83,9 +83,10 @@ class PlacesAutocomplete extends React.Component {
       return;
     }
     const { highlightFirstSuggestion, enhancePredictions } = this.props;
+    const { userInputValue } = this.state;
 
     const enhancedPredictions = enhancePredictions
-      ? enhancePredictions(predictions)
+      ? enhancePredictions(predictions, userInputValue)
       : predictions;
 
     this.setState({
