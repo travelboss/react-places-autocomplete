@@ -99,6 +99,7 @@ class PlacesAutocomplete extends React.Component {
         matchedSubstrings: p.matched_substrings,
         terms: p.terms,
         types: p.types,
+        className: p.className,
       })),
     });
   };
