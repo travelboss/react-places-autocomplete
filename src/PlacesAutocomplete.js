@@ -239,8 +239,8 @@ class PlacesAutocomplete extends React.Component {
       this.clearSuggestions();
     } else if (this.props.shouldFetchSuggestions) {
       this.setState({ loading: true });
-      this.debouncedFetchPredictions();
     }
+    this.debouncedFetchPredictions();
     this.props.onChange(value);
     this.setState({ userInputValue: value });
   };
