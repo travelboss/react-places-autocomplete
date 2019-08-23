@@ -77,8 +77,8 @@ class PlacesAutocomplete extends React.Component {
   };
 
   autocompleteCallback = (predictions, status) => {
-    this.setState({ loading: false });
     if (status !== this.autocompleteOK) {
+      this.setState({ loading: false });
       this.props.onError(status, this.clearSuggestions);
       return;
     }
@@ -89,6 +89,7 @@ class PlacesAutocomplete extends React.Component {
       : predictions;
 
     this.setState({
+      loading: false,
       suggestions: enhancedPredictions.map((p, idx) => ({
         id: p.id,
         description: p.description,
@@ -115,6 +116,8 @@ class PlacesAutocomplete extends React.Component {
         },
         this.autocompleteCallback
       );
+    } else {
+      this.autocompleteCallback([], this.autocompleteOK);
     }
   };
 
@@ -232,13 +235,19 @@ class PlacesAutocomplete extends React.Component {
 
   handleInputChange = event => {
     const { value } = event.target;
-    this.props.onChange(value);
-    this.setState({ userInputValue: value });
     if (!value) {
       this.clearSuggestions();
-      return;
+    } else if (this.props.shouldFetchSuggestions) {
+      this.setState({ loading: true });
+      this.debouncedFetchPredictions();
     }
-    if (this.props.shouldFetchSuggestions) {
+    this.props.onChange(value);
+    this.setState({ userInputValue: value });
+  };
+
+  handleInputOnFocus = event => {
+    const { value } = event.target;
+    if (!value && this.props.shouldFetchSuggestions) {
       this.debouncedFetchPredictions();
     }
   };
@@ -291,6 +300,9 @@ class PlacesAutocomplete extends React.Component {
       value: this.props.value,
       onChange: event => {
         this.handleInputChange(event);
+      },
+      onFocus: event => {
+        this.handleInputOnFocus(event);
       },
     };
   };

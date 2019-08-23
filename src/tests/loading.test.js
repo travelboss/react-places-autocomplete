@@ -31,9 +31,9 @@ test('loading prop check', () => {
   const el = component.find(PlacesAutocomplete);
   el.instance().fetchPredictions();
 
-  // there are 2 setStates in the callback, so we end up with 4 renders
-  expect(childProp).toHaveBeenCalledTimes(4);
-  const expected = [false, true, false, false];
+  // there is 1 setState in the callback, so we end up with 3 renders
+  expect(childProp).toHaveBeenCalledTimes(3);
+  const expected = [false, true, false];
   childProp.mock.calls.forEach((call, i) => {
     expect(call[0]).toMatchObject({ loading: expected[i] });
   });
